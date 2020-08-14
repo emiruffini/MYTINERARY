@@ -30,7 +30,7 @@ const items = [
     "paris"
   ]
   },{slide:[
-    "rio",
+    "rio de janeiro",
     "roma",
     "tokio",
     "bangkok"
