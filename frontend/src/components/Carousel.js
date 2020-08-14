@@ -17,8 +17,8 @@ const items = [
     "bilbao"
   ]},
   {slide:[
-    "brujas",
-    "bruselas",
+    "bruges",
+    "brussels",
     "buenos aires",
     "cancun"
   ]
@@ -31,7 +31,7 @@ const items = [
   ]
   },{slide:[
     "rio de janeiro",
-    "roma",
+    "rome",
     "tokio",
     "bangkok"
   ]}
