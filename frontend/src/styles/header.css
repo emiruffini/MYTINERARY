@@ -1,0 +1,12 @@
+.logo{
+    max-width: 30vh;
+}
+
+.user{
+    max-width: 6vh;
+    margin: 0;
+}
+
+*{
+    list-style: none!important;
+}
