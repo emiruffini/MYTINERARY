@@ -10,3 +10,14 @@
 *{
     list-style: none!important;
 }
+
+
+@media (min-width: 500px) {
+    .user1{
+        justify-content: center;
+        align-items: center;
+    }
+}
+.user1{
+    display: flex;
+}

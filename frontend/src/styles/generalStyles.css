@@ -1,9 +1,13 @@
 html{
-    font-size: 62.5%;
+
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     
+}
+
+body{
+    background-color: whitesmoke!important;
 }
 
 *,
@@ -12,4 +16,30 @@ html{
     box-sizing: inherit;
 }
 
+.link1{
+    margin-right: 1rem;
+    color: rgba(59, 59, 59, 0.959);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+.link1:hover{
+    color:#ffa300;
+}
+.link1.active{
+    color: #ffa300;
+    font-weight: 600;
+}
 
+.listFooter li{
+    margin-left: 0;
+}
+
+.nav-item{
+    padding: 1rem;
+}
+
+.navbar{
+    border-bottom-style: solid;
+    border-color:  #ffa300;
+    border-width: 2px;
+}
