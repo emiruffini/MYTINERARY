@@ -25,7 +25,7 @@ const Navegacion = (props) => {
     <div>
       <Navbar color="light" light expand="md">
         
-        <NavbarBrand href="/home"><img className="logo" src={process.env.PUBLIC_URL + '/logo.png'}/></NavbarBrand>
+        <NavbarBrand><NavLink to = "/home"><img className="logo" src={process.env.PUBLIC_URL + '/logo.png'}/></NavLink></NavbarBrand>
         <NavbarToggler  onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>

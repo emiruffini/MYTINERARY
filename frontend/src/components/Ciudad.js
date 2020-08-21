@@ -4,8 +4,6 @@ import {faFrown} from '@fortawesome/free-solid-svg-icons'
 
 const Ciudad = (props) =>{
     
-    
-    console.log(props.ciudad)
     if (props.ciudad === "vacio"){
         return( 
             <>  
@@ -17,19 +15,19 @@ const Ciudad = (props) =>{
                 
             </>
         )
-    }else if(props.ciudad!== []){
-        if (props.ciudad.includes(" ")){
-            var nombreLimpio = props.ciudad.replace(/\s/g, '-')
+    }else if(props.ciudad.nombre!== []){
+        if (props.ciudad.nombre.includes(" ")){
+            var nombreLimpio = props.ciudad.nombre.toLowerCase().replace(/\s/g, '-')
             
-        }else if(!props.ciudad.includes(" ")){
-            var nombreLimpio = props.ciudad
+        }else if(!props.ciudad.nombre.includes(" ")){
+            var nombreLimpio = props.ciudad.nombre.toLowerCase()
         }
         var foto = require(`../images/${nombreLimpio}1.jpg`)
         return(
             <>  
                 
                 <div className ="ciudadFiltro" style={{backgroundImage: `url(${foto})`}}>
-                <li>{props.ciudad}</li>
+                <li>{props.ciudad.nombre + ", "+props.ciudad.pais +"."}</li>
                 </div>
             </>
         )

@@ -1,37 +1,44 @@
 import React from 'react'
 import Ciudad from './Ciudad'
 import '../styles/ciudadesFiltro.css'
-
+import axios from 'axios'
 
 class Ciudades extends React.Component{
     state ={
-        ciudades: ["amsterdam","bangkok","barcelona","berlin","bilbao","bruges","brussels","buenos aires","cancun","madrid","mexico city","milan","new york city","paris","rio de janeiro","rome","tokio"],
-
-        ciudadesFiltradas:["amsterdam","bangkok","barcelona","berlin","bilbao","bruges","brussels","buenos aires","cancun","madrid","mexico city","milan","new york city","paris","rio de janeiro","rome","tokio"],
+        ciudades: [],
+        ciudadesFiltradas:[],
     } 
       
+    async componentDidMount(){
+        const respuesta = await axios.get('http://localhost:4000/api/ciudades')
+            this.setState({
+                ciudades: respuesta.data.response,
+                ciudadesFiltradas: respuesta.data.response
+            })
+            
+    }
 
+        
     
     render(){
         const filter = e =>{
-            const valorBuscar = e.target.value
+            const valorBuscar = e.target.value.trim()
             const filtrados = this.state.ciudades.filter(ciudad => (
-                    ciudad.toLowerCase().indexOf(valorBuscar.toLowerCase()) === 0)
+                    ciudad.nombre.toLowerCase().indexOf(valorBuscar.toLowerCase()) === 0)
                     )
+            console.log(filtrados)        
             if (filtrados.length === 0){
                 this.setState({
                     ciudadesFiltradas: ["vacio"]
                 })
+                
             }else{
                 this.setState({
                     ciudadesFiltradas: filtrados
                 })
             }
-
-            console.log(this.state.ciudadesFiltrados)
-            
         }
-
+        
         return(
             <>
                 <div className="contenedor">
@@ -46,7 +53,7 @@ class Ciudades extends React.Component{
                 onChange={filter}></input>
                 </div>
                 <ul className= "ciudadesFiltro">
-                    {this.state.ciudadesFiltradas.map(ciudad => (
+                    {this.state.ciudadesFiltradas.sort((a, b) => (a.nombre > b.nombre)).map(ciudad => (
                     <Ciudad ciudad = {ciudad} />))}
                 </ul>
                 </div>
