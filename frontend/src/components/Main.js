@@ -1,5 +1,5 @@
-import React, { createContext } from 'react'
-import Paises from './Paises'
+import React from 'react'
+import TopCiudades from './TopCiudades'
 import Carousel from './Carousel'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowCircleRight} from '@fortawesome/free-solid-svg-icons'
@@ -20,7 +20,7 @@ const Main = (props) => {
         <div className="icon">
         <NavLink to="/cities"><FontAwesomeIcon className="flecha" icon={faArrowCircleRight}/></NavLink>
         </div>
-        <Paises />
+        <TopCiudades />
         <div className=" titulo">
           <div className="linea"></div>
           <h2 className="palabras">Popular Itineraries</h2>

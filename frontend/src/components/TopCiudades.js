@@ -1,7 +1,7 @@
 import React,{ useState } from 'react'
-import '../styles/topPaises.css'
+import '../styles/topCiudades.css'
 
-const Paises = (props) =>{
+const topCiudades = (props) =>{
 
   
     return(
@@ -28,4 +28,4 @@ const Paises = (props) =>{
     )
 }
 
-export default Paises
+export default topCiudades

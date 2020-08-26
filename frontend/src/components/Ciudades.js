@@ -10,11 +10,13 @@ class Ciudades extends React.Component{
     } 
       
     async componentDidMount(){
-        const respuesta = await axios.get('http://localhost:4000/api/ciudades')
+        const respuesta = await axios.get('http://localhost:4000/api/cities')
             this.setState({
                 ciudades: respuesta.data.response,
                 ciudadesFiltradas: respuesta.data.response
+                
             })
+            console.log(respuesta.data.response)
             
     }
 
@@ -53,7 +55,7 @@ class Ciudades extends React.Component{
                 onChange={filter}></input>
                 </div>
                 <ul className= "ciudadesFiltro">
-                    {this.state.ciudadesFiltradas.sort((a, b) => (a.nombre > b.nombre)).map(ciudad => (
+                    {this.state.ciudadesFiltradas.sort((a, b) => (a.name > b.name)).map(ciudad => (
                     <Ciudad ciudad = {ciudad} />))}
                 </ul>
                 </div>

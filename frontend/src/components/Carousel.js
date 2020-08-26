@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/carousel.css'
 import Slide from '../components/Slide'
+
 import {
   Carousel,
   CarouselItem,
@@ -65,8 +66,9 @@ const Car = (props) => {
         onExited={() => setAnimating(false)}
         
       >
+        
         <Slide items={item} />
-            
+           
         
         
       </CarouselItem>

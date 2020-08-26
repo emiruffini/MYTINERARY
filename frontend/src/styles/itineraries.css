@@ -1,0 +1,117 @@
+.imagenesCiudad{
+    display: none;
+    width: 100%;
+    
+}
+
+.imgCiudad{
+    width: 23%;
+    margin: 1rem;
+    border-radius: 1rem;
+    -webkit-box-shadow: 0px 11px 15px -9px rgba(0, 0, 0, 0.658);
+    box-shadow: 0px 11px 15px -9px rgba(0, 0, 0, 0.514);
+    object-fit: cover;
+    object-position: 50% 50%;
+}
+
+@media (min-width: 900px) {
+    .imagenesCiudad{
+        height: 40vh;
+        justify-content: center;
+    }
+}
+
+@media (min-width: 1000px) {
+    .imagenesCiudad{
+        display: flex;
+    }
+}
+
+.itinerario{
+    color: whitesmoke;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 65%;
+    background-color: #343a40;
+    -webkit-box-shadow: 0px 11px 15px -9px rgba(0, 0, 0, 0.658);
+    box-shadow: 0px 11px 15px -9px rgba(0, 0, 0, 0.514);
+    border:solid;
+    border-color: #ffa300 ;
+    border-radius: 2rem;
+}
+
+.tituloItinerario{
+    padding: 1rem;
+    color: #ffa300;
+}
+.contenidoItinerario{
+    width: 100%;
+    display: flex;
+}
+
+.fotoUser{
+    width: 40%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: space-evenly;
+   
+}
+
+.fotoUser img{
+    width: 20vh;
+    height: 20vh;
+    border-radius: 50%;
+    object-fit: cover;
+    border: solid;
+    border-color: #ffa300;
+    -webkit-box-shadow: 0px 11px 15px -9px rgba(0, 0, 0, 0.658);
+    box-shadow: 0px 11px 15px -9px rgba(0, 0, 0, 0.514);
+}
+.fotoUser p{
+    margin-bottom: 0;
+}
+
+.textoItinerario{
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    
+}
+.autor{
+    color:#ffa300;
+    font-weight: 600;
+}
+.parrafos p,
+.hashtags p{
+    background-color: #ffa20080;
+    text-align: center;
+    padding: 0.5rem;
+    -webkit-box-shadow: 0px 11px 15px -9px rgba(0, 0, 0, 0.658);
+    box-shadow: 0px 11px 15px -9px rgba(0, 0, 0, 0.514);
+    border-radius: 2rem;
+    font-size: 1.2rem;
+}
+
+.botonActivities{
+    padding: 0.5rem;
+    margin: 1rem;
+    background-color: #ffa200d2;
+    border:none;
+    -webkit-box-shadow: 0px 11px 15px -9px rgba(0, 0, 0, 0.658);
+    box-shadow: 0px 11px 15px -9px rgba(0, 0, 0, 0.514);
+    color: white;
+    border-radius: 1rem;
+}
+
+.botonActivities:hover{
+    background-color: #966003;
+}
+
+.caritaTriste{
+    font-size: 20vh;
+    color: #966003;
+}

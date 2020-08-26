@@ -1,5 +1,5 @@
 import React from 'react'
-
+import {NavLink} from 'react-router-dom'
 class Slide extends React.Component{
     render(){
 
@@ -20,9 +20,10 @@ class Slide extends React.Component{
                             <>
                             <div className="fotox">
                                 <div className="fotoxx">   
-                                
-                                    <img className="imagen"  src={source}/>
-                                    <h3 className="pie1">{ciudades}</h3>
+                                    <NavLink to = '/Cities'>
+                                        <img className="imagen"  src={source}/>
+                                        <h3 className="pie1">{ciudades}</h3>
+                                    </NavLink>
                                 
                                 </div>
                             </div> 

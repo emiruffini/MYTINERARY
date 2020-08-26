@@ -1,4 +1,5 @@
 import React from 'react'
+import {NavLink} from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faFrown} from '@fortawesome/free-solid-svg-icons'
 
@@ -15,20 +16,21 @@ const Ciudad = (props) =>{
                 
             </>
         )
-    }else if(props.ciudad.nombre!== []){
-        if (props.ciudad.nombre.includes(" ")){
-            var nombreLimpio = props.ciudad.nombre.toLowerCase().replace(/\s/g, '-')
+    }else if(props.ciudad.name!== []){
+        if (props.ciudad.name.includes(" ")){
+            var nombreLimpio = props.ciudad.name.toLowerCase().replace(/\s/g, '-')
             
-        }else if(!props.ciudad.nombre.includes(" ")){
-            var nombreLimpio = props.ciudad.nombre.toLowerCase()
+        }else if(!props.ciudad.name.includes(" ")){
+            var nombreLimpio = props.ciudad.name.toLowerCase()
         }
         var foto = require(`../images/${nombreLimpio}1.jpg`)
         return(
             <>  
-                
-                <div className ="ciudadFiltro" style={{backgroundImage: `url(${foto})`}}>
-                <li>{props.ciudad.nombre + ", "+props.ciudad.pais +"."}</li>
-                </div>
+            <div className ="ciudadFiltro" style={{backgroundImage: `url(${foto})`}}>
+                <NavLink to = {`/Itinerary/${props.ciudad._id}`}>
+                        <li>{props.ciudad.name + ", "+props.ciudad.country +"."}</li>
+                </NavLink>
+            </div>
             </>
         )
     }
