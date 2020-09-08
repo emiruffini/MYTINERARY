@@ -1,14 +1,15 @@
 import React from 'react'
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faHeart} from '@fortawesome/free-solid-svg-icons'
-
+import Activities from './Activities'
 
 
 import "../styles/itineraries.css"
 
 class Itinerary extends React.Component{
-
+    state = {
+        viewMore: null
+    }
     
     render(){
 
@@ -23,6 +24,13 @@ class Itinerary extends React.Component{
             }
         }
         
+        const changeStatus = () =>{
+            this.setState({
+                viewMore: !this.state.viewMore
+            })
+        }
+
+
         return (
             <>
                 <div className="contenedor">   
@@ -37,7 +45,7 @@ class Itinerary extends React.Component{
                             <div className="contenidoItinerario"> 
 
                                 <div className="fotoUser">
-                                    <img src ={require( `../images/users/${this.props.itinerarios.porfilePic}.jpg`)}></img>
+                                    <img src ={require( `../images/users/${this.props.itinerarios.porfilePic}.jpg`)} alt= "imagen Usuario"></img>
                                     <p>Made by: <span className="autor">"{this.props.itinerarios.porfilePic}"</span></p>
                                 </div>
 
@@ -58,8 +66,10 @@ class Itinerary extends React.Component{
                                 </div>
 
                             </div>
-
-                            <button className="botonActivities">View activities</button>
+                            
+                            {this.state.viewMore && <Activities idItinerary ={this.props.itinerarios._id}/>}
+                            <button onClick={changeStatus} className="botonActivities">{this.state.viewMore ? "View Less" : "View More"}</button>
+                            
 
                         </div>
                     

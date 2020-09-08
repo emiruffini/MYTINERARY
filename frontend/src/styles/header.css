@@ -3,8 +3,11 @@
 }
 
 .user{
-    max-width: 6vh;
+    width: 8vh;
+    height: 8vh;
     margin: 0;
+    border-radius: 100%;
+    object-fit:cover;
 }
 
 *{

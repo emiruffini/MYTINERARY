@@ -4,6 +4,9 @@ import Hero from '../components/Hero'
 import Main from '../components/Main.js'
 import Footer from '../components/Footer.js'
 class Home extends React.Component{
+    
+    
+    
     render(){
         return(
             <>

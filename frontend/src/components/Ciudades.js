@@ -1,7 +1,10 @@
 import React from 'react'
 import Ciudad from './Ciudad'
 import '../styles/ciudadesFiltro.css'
-import axios from 'axios'
+import {connect} from 'react-redux'
+import { NavLink, Redirect } from 'react-router-dom'
+
+
 
 class Ciudades extends React.Component{
     state ={
@@ -9,26 +12,19 @@ class Ciudades extends React.Component{
         ciudadesFiltradas:[],
     } 
       
-    async componentDidMount(){
-        const respuesta = await axios.get('http://localhost:4000/api/cities')
-            this.setState({
-                ciudades: respuesta.data.response,
-                ciudadesFiltradas: respuesta.data.response
-                
-            })
-            console.log(respuesta.data.response)
-            
+   componentDidMount(){
+        this.setState({
+            ciudades : this.props.cities.cities.response,
+            ciudadesFiltradas : this.props.cities.cities.response
+        })
     }
-
-        
     
     render(){
         const filter = e =>{
             const valorBuscar = e.target.value.trim()
             const filtrados = this.state.ciudades.filter(ciudad => (
-                    ciudad.nombre.toLowerCase().indexOf(valorBuscar.toLowerCase()) === 0)
-                    )
-            console.log(filtrados)        
+                    ciudad.name.toLowerCase().indexOf(valorBuscar.toLowerCase()) === 0)
+                    )      
             if (filtrados.length === 0){
                 this.setState({
                     ciudadesFiltradas: ["vacio"]
@@ -40,30 +36,47 @@ class Ciudades extends React.Component{
                 })
             }
         }
-        
-        return(
-            <>
-                <div className="contenedor">
-                <div className=" titulo">
-                    <div className="linea"></div>
-                        <h2 className="palabras">Search by city</h2>
-                    <div className="linea"></div>
-                </div>
-                
-                <div className="contenedorInput">
-                <input className="filtro" type="text" placeholder="Enter city to search" name="search" id="search"
-                onChange={filter}></input>
-                </div>
-                <ul className= "ciudadesFiltro">
-                    {this.state.ciudadesFiltradas.sort((a, b) => (a.name > b.name)).map(ciudad => (
-                    <Ciudad ciudad = {ciudad} />))}
-                </ul>
-                </div>
-                
-            </>
-        )
+
+       if(this.state.ciudadesFiltradas !== undefined){
+           
+            return(
+                <>
+                    <div className="contenedor">
+                    <div className=" titulo">
+                        <div className="linea"></div>
+                            <h2 className="palabras">Search by city</h2>
+                        <div className="linea"></div>
+                    </div>
+                    
+                    <div className="contenedorInput">
+                    <input className="filtro" type="text" placeholder="Enter city to search" name="search" id="search"
+                    onChange={filter}></input>
+                    </div>
+                    <ul className= "ciudadesFiltro">
+                        {this.state.ciudadesFiltradas.sort((a, b) => (a.name > b.name)).map(ciudad => (
+                        <Ciudad ciudad = {ciudad} />))}
+                    </ul>
+                    </div>
+                    
+                </>
+            )
+        }else{
+            return (
+                <Redirect to="/" />
+            )
+        }
         
         
     }
 }
-export default Ciudades
+
+
+
+const mapStateToProps =(state)=>{
+    return{
+        cities: state.cities
+    }
+}
+
+
+export default connect(mapStateToProps)(Ciudades)

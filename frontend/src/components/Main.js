@@ -1,13 +1,36 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import TopCiudades from './TopCiudades'
 import Carousel from './Carousel'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowCircleRight} from '@fortawesome/free-solid-svg-icons'
 import {NavLink} from 'react-router-dom'
+import { useDispatch} from "react-redux";
+import citiesActions from '../redux/actions/citiesActions'
+import {useSelector} from "react-redux";
+import {createSelector} from 'reselect';
+
+
 
 
 
 const Main = (props) => {
+
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+      dispatch(citiesActions.getInfo())
+    }, [])
+
+    
+    const selectUser = createSelector(
+      state => state.users,
+      logUser => logUser
+    )
+    const logUser = useSelector(selectUser) 
+
+
+
+
     return (
       <>
       <div className="contenedor">

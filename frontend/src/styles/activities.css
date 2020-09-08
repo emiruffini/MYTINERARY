@@ -1,0 +1,76 @@
+.activities{
+    width: 75%;
+}
+
+
+.activityContainer{
+    height: 10vh;
+    margin-bottom: 1rem;
+    width: 100%;
+    background-position: center center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    -webkit-box-shadow: 0px 11px 15px -9px rgba(0, 0, 0, 0.658);
+    box-shadow: 0px 11px 15px -9px rgba(0, 0, 0, 0.514);
+    border-radius: 1rem;
+    overflow: hidden;
+    border: solid 2px #966003;
+}
+.activityContainer:last-child{
+    margin-right: 0;
+}
+
+@media (min-width: 472px) {
+    .activityContainer{
+        height: 15vh;
+        width: 100%;
+    }
+}
+
+@media (min-width: 600px) {
+    .activityContainer{
+        height: 20vh;
+        width: 100%;
+    }
+}
+@media (min-width: 900px) {
+    .activityContainer{
+        height: 25vh;
+        width: 100%;
+        margin-right: 2rem;
+    }
+}
+
+.activityContainer h4{
+    background-color: rgba(0, 0, 0, 0.589);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 1rem;
+    margin: 0;
+    height: 100%;
+    font-weight: 600;
+}
+
+.activitiesContainer{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+@media (min-width: 472px ) {
+    .activitiesContainer{
+        flex-direction: row;
+        width: 100%;
+    }
+}
+
+.activities h4.title{
+    margin-top: 2rem;
+    color: #ffa300;
+}

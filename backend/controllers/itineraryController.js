@@ -1,6 +1,7 @@
 const Itinerary = require('../models/itineraryModel')
 const City = require('../models/cityModel')
 
+
 const ItinerariesController = {
     getItineraries: async (req, res) =>{
         try{

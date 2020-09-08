@@ -1,44 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import '../styles/carousel.css'
 import Slide from '../components/Slide'
+import {useSelector} from "react-redux";
+import {createSelector} from 'reselect';
+
 
 import {
   Carousel,
   CarouselItem,
   CarouselControl,
   CarouselIndicators,
-  CarouselCaption
 } from 'reactstrap';
 
 const items = [
-  {slide: [
-    "amsterdam",
-    "barcelona",
-    "berlin",
-    "bilbao"
-  ]},
-  {slide:[
-    "bruges",
-    "brussels",
-    "buenos aires",
-    "cancun"
-  ]
-  },
-  {slide:[
-    "madrid",
-    "milan",
-    "new york city",
-    "paris"
-  ]
-  },{slide:[
-    "rio de janeiro",
-    "rome",
-    "tokio",
-    "bangkok"
-  ]}
-]
+  {slide: []},
+  {slide: []},
+  {slide: []},
+  {slide:[]}
+] 
+
+
+
+
+const City = (data) =>{
+
+  if (data.cities.response != undefined){
+      items[0].slide = data.cities.response.slice(0,4)
+      items[1].slide = data.cities.response.slice(4,8)
+      items[2].slide = data.cities.response.slice(8,12)
+      items[3].slide = data.cities.response.slice(12,16)
+  }
+  
+}
+
+
 
 const Car = (props) => {
+  
+  
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
 
@@ -59,34 +59,50 @@ const Car = (props) => {
     setActiveIndex(newIndex);
   }
 
-  const slides = items.map((item) => {
-    return (
-      <CarouselItem
-        onExiting={() => setAnimating(true)}
-        onExited={() => setAnimating(false)}
-        
-      >
-        
-        <Slide items={item} />
-           
-        
-        
-      </CarouselItem>
-    );
-  });
+  const selectCities = createSelector(
+    state => state.cities,
+    allCities => allCities
+  )
+  const allCities = useSelector(selectCities)
+  
 
-  return (
-    <Carousel
-      activeIndex={activeIndex}
-      next={next}
-      previous={previous}
-    >
-      <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
-      {slides}
-      <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
-      <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
-    </Carousel>
-  );
+  if (allCities.cities.lenght != 0){
+
+    City(allCities)
+    
+    const slides = items.map((item) => {
+
+      return (
+        <CarouselItem
+          onExiting={() => setAnimating(true)}
+          onExited={() => setAnimating(false)}
+          
+        >
+          
+          <Slide cities={item} />
+             
+          
+          
+        </CarouselItem>
+      );
+    });
+  
+    return (
+      <Carousel
+        activeIndex={activeIndex}
+        next={next}
+        previous={previous}
+      >
+        <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
+        {slides}
+        <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
+        <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
+      </Carousel>
+    );
+  }else{
+    return <h1>Loading</h1>
+  }
+  
 }
 
 export default Car;
