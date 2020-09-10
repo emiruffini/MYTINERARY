@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const { required } = require('@hapi/joi')
 
 const userSchema = new mongoose.Schema({
     user: {type:String, required:true, 
@@ -18,7 +19,8 @@ const userSchema = new mongoose.Schema({
             message: () => "That email is already used"
         }
     },
-    country:{type:String, required:true}
+    country:{type:String, required:true},
+    likes:{type:Array}
 })
 
 const User = mongoose.model('user',userSchema)

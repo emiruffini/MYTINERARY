@@ -6,7 +6,13 @@ import Footer from '../components/Footer.js'
 
 
 
+
 class Cities extends React.Component{
+
+    componentDidMount() {
+        window.scrollTo(0, 0)
+    }
+
     render(){
         return(
             <>

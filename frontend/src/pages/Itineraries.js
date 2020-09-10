@@ -3,12 +3,13 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import Itinerary from '../components/Itinerary'
 import Footer from '../components/Footer.js'
-import axios from 'axios'
+import citiesActions from '../redux/actions/citiesActions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faSadCry} from '@fortawesome/free-solid-svg-icons'
 import {faArrowCircleLeft} from '@fortawesome/free-solid-svg-icons'
 import {faHome} from '@fortawesome/free-solid-svg-icons'
 import { NavLink } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 
 
@@ -24,25 +25,30 @@ class Itineraries extends React.Component{
     } 
     
     async componentDidMount(){
-        var idABuscar = this.props.match.params.id
-        var respuesta = await axios.get(`http://127.0.0.1:4000/api/itineraries/${idABuscar}`)
         
-        this.setState({
-            itinerarios: respuesta.data.response,
-        })
+        window.scrollTo(0, 0)
+          
+        var idABuscar = this.props.match.params.id
+        var res = await this.props.getItineraries(idABuscar)
+        console.log(res)
+        if(res !== undefined){
+            this.setState({
+                itinerarios: res.response,
+            })
+        }
         var toRender = (this.state.itinerarios.length !== 0 && this.state.ciudad.name === null) 
         ? this.setState({
             ciudad:{
-                name: respuesta.data.response[0].cityId.name,
-                country: respuesta.data.response[0].cityId.country
+                name: res.response[0].cityId.name,
+                country: res.response[0].cityId.country
             }
         })
         : (this.state.itinerarios !== null && this.state.ciudad.name === null)
         ?
         this.setState({
             ciudad:{
-                name: respuesta.data.response2.name,
-                country: respuesta.data.response2.country
+                name: res.response2.name,
+                country: res.response2.country
             }
         }) 
         : null
@@ -84,8 +90,8 @@ class Itineraries extends React.Component{
                         </div>
                     </div>
                     :
-                    this.state.itinerarios.map(itinerario => {
-                        return(<Itinerary itinerarios = {itinerario}/>)
+                    this.state.itinerarios.map(itinerary => {
+                        return(<Itinerary itinerary = {itinerary}/>)
                     })} 
                     
                     <div className="bottomButton">
@@ -105,6 +111,8 @@ class Itineraries extends React.Component{
             }
     }
 }
+const mapDispatchToProps = {
+    getItineraries: citiesActions.getItineraries
+}
 
-
-export default (Itineraries)
+export default connect(null, mapDispatchToProps)(Itineraries)

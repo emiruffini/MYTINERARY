@@ -1,9 +1,11 @@
 import React from 'react'
 import Header2 from './Header2'
-import Footer from './Footer'
-import {connect} from 'react-redux'
-import'../styles/log.css'
+import Footer2 from './Footer2'
 import usersActions from '../redux/actions/usersActions'
+import {connect} from 'react-redux'
+import GoogleLogin from 'react-google-login';
+import'../styles/log.css'
+
 import Swal from 'sweetalert2'
 
 
@@ -30,7 +32,9 @@ class LogIn extends React.Component{
         
     }
 
+
     submit =  async e => {
+ 
         e.preventDefault()
         if (this.state.logUser.name ==="" || this.state.logUser.password === "" ){
             this.setState({
@@ -39,10 +43,12 @@ class LogIn extends React.Component{
         }else{
             const logUser= {user:this.state.logUser.user , password: this.state.logUser.password}
             const response =  await this.props.logUser(logUser)
-            if (response === true){
-                Swal.fire({  title: 'Welcome!',  text: `It´s nice to have you again ,${this.props.userLog.users.name}.`,  icon: 'success',  showConfirmButton: false, timer: 2000,allowOutsideClick: false})
+            
+            if (response.success === true){
+                Swal.fire({  title: 'Welcome!',  text: `It´s nice to have you again, ${response.user}.`,  icon: 'success',  showConfirmButton: false, timer: 2000,allowOutsideClick: false})
                 
-                this.props.history.push("/")
+                
+                
                 
             }else{
                 this.setState({
@@ -52,8 +58,22 @@ class LogIn extends React.Component{
         }
     }
 
+    responseGoogle = async (response) =>{
+        this.setState({
+            ...this.state,
+            logUser:{
+                user:response.profileObj.email,
+                password:response.profileObj.googleId+response.profileObj.familyName
+            }
+        })
+        const res =  await this.props.logUser(this.state.logUser)
+        Swal.fire({  title: 'Welcome!',  text: `It´s nice to have you again, ${response.profileObj.givenName}.`,  icon: 'success',  showConfirmButton: false, timer: 2000,allowOutsideClick: false})
+
+    }
+
     
     render(){
+
         return (
             <>
             <Header2 />
@@ -68,12 +88,20 @@ class LogIn extends React.Component{
                     <span className = {this.state.error === "" ? "" : "logError"}>{this.state.error}</span>
                     <input className="account" name="user" type="text" placeholder="Enter your user" onChange={this.getForm}></input>
                     <input className="password" type="password" name="password" placeholder="Enter your password" onChange={this.getForm}></input>
-                
+                    
                     <button onClick={this.submit} className="send">Sign In</button>
+                    <GoogleLogin
+                        className="googleBtn"
+                        clientId="265571770533-92fvspts16cbanj6uh73ukj8b8pva8gm.apps.googleusercontent.com"
+                        buttonText="Sign in with Google"
+                        onSuccess={this.responseGoogle}
+                        onFailure={this.responseGoogle}
+                        cookiePolicy={'single_host_origin'}
+                    />
                 </div>
             </div>
 
-            <Footer />
+            <Footer2 />
 
             </>
         )
@@ -84,9 +112,9 @@ const mapDispatchToProps = {
     logUser: usersActions.logUser,
 }
 
-const mapStateToProps = (state )=>{
+const mapStateToProps = (state)=>{
     return{
-        userLog: state
+        userLog: state.users
     }
 }
 

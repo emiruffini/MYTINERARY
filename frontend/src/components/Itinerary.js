@@ -2,15 +2,65 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faHeart} from '@fortawesome/free-solid-svg-icons'
 import Activities from './Activities'
-
-
+import { connect } from 'react-redux'
+import usersActions from '../redux/actions/usersActions'
 import "../styles/itineraries.css"
+
 
 class Itinerary extends React.Component{
     state = {
-        viewMore: null
+        viewMore: null, 
+        likesAmmount:"",
+        liked: false,
+        likesArray:""
+
     }
-    
+
+     async componentDidMount(){
+        await this.liked()
+    } 
+
+
+
+    changeStatus = () =>{
+        this.setState({
+            ...this.state,
+            viewMore: !this.state.viewMore
+        })
+    }
+
+    liked = async () =>{
+        var likes = await this.props.getLikes(this.props.token)
+     
+        
+        if( likes !== null && likes.length !== 0){ 
+            
+            if  (likes.includes(this.props.itinerary._id)){
+                this.setState({
+                    ...this.state,
+                    liked: true
+                })
+            }else{
+                this.setState({
+                    ...this.state,
+                    liked: false
+                })
+            }
+        }
+    }
+
+
+
+    likes = async () =>{
+        var likesAmmount = await this.props.likeItinerary(this.props.itinerary._id, this.props.token)
+        this.liked()
+        this.setState({
+            ...this.state,
+            likesAmmount
+        })
+    }
+
+
     render(){
 
         function price(data){
@@ -24,41 +74,37 @@ class Itinerary extends React.Component{
             }
         }
         
-        const changeStatus = () =>{
-            this.setState({
-                viewMore: !this.state.viewMore
-            })
-        }
 
-
+        
+        
+        
         return (
             <>
-                <div className="contenedor">   
+                <div className="contenedor1">   
                     <div style={{width:"100%", display:"flex", justifyContent:"center", margin:'1rem auto'}}>
                         
                         <div className = "itinerario">
 
                             <div className="tituloItinerario">
-                                <h3>{this.props.itinerarios.title}</h3>
+                                <h3>{this.props.itinerary.title}</h3>
                             </div>
 
                             <div className="contenidoItinerario"> 
 
                                 <div className="fotoUser">
-                                    <img src ={require( `../images/users/${this.props.itinerarios.porfilePic}.jpg`)} alt= "imagen Usuario"></img>
-                                    <p>Made by: <span className="autor">"{this.props.itinerarios.porfilePic}"</span></p>
+                                    <img src ={require( `../images/users/${this.props.itinerary.porfilePic}.jpg`)} alt= "imagen Usuario"></img>
+                                    <p>Made by: <span className="autor">"{this.props.itinerary.porfilePic}"</span></p>
                                 </div>
 
                                 <div className="textoItinerario">
 
                                     <div className="parrafos">
-                                        <p>Duration: {this.props.itinerarios.duration} hours</p>
-                                        <p>{price(this.props.itinerarios.price)}</p>
-                                        <p><FontAwesomeIcon className="corazon" icon={faHeart}/> {this.props.itinerarios.rating}</p>
+                                        <p>Duration: {this.props.itinerary.duration} hours</p>
+                                        <p>{price(this.props.itinerary.price)}</p>
+                                        <p><button className="like" onClick={this.likes}><FontAwesomeIcon className={this.state.liked ? "red" : "white"} icon={faHeart}/></button> {this.state.likesAmmount === "" ? this.props.itinerary.rating : this.state.likesAmmount}</p>
                                     </div>
-
                                     <div className="hashtags">
-                                        {this.props.itinerarios.hashtag.map(hashtag =>{
+                                        {this.props.itinerary.hashtag.map(hashtag =>{
                                             return <p>#{hashtag}</p>
                                         })}               
                                     </div>
@@ -67,8 +113,8 @@ class Itinerary extends React.Component{
 
                             </div>
                             
-                            {this.state.viewMore && <Activities idItinerary ={this.props.itinerarios._id}/>}
-                            <button onClick={changeStatus} className="botonActivities">{this.state.viewMore ? "View Less" : "View More"}</button>
+                            {this.state.viewMore && <Activities idItinerary ={this.props.itinerary._id}/>}
+                            <button onClick={this.changeStatus} className="botonActivities">{this.state.viewMore ? "View Less" : "View More"}</button>
                             
 
                         </div>
@@ -81,4 +127,16 @@ class Itinerary extends React.Component{
     }
 }
 
-export default Itinerary
+
+const mapStateToProps = (state) =>{
+    return{
+        token: state.users.token
+    }
+}
+
+const mapDispatchToProps = {
+    likeItinerary: usersActions.likeItinerary,
+    getLikes: usersActions.getLikes
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Itinerary)

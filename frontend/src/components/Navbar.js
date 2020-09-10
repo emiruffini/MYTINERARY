@@ -26,7 +26,6 @@ const Navegacion = (props) => {
   )
   const logUser = useSelector(selectLogUser)
 
-  console.log(logUser)
 
 
   const [isOpen, setIsOpen] = useState(false);
@@ -106,10 +105,8 @@ const Navegacion = (props) => {
                       Log Out
                     </DropdownItem>
                   </NavLink>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                   Welcome, {logUser.name}
-                  </DropdownItem>
+                  
+                  
                 </>)
                 }
                   

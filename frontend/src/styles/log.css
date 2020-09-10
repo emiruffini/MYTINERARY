@@ -1,5 +1,5 @@
 .signContainer{
-    width: 60%;
+    width: 90%;
     margin:3rem auto;
     display: flex;
     justify-items: center;
@@ -12,6 +12,13 @@
     border-radius: 1rem;
     border: solid;
     border-color: #ffa300;
+}
+
+@media (min-width: 700px) {
+    .signContainer{
+
+        width: 60%;
+    }
 }
 
 .titleContainer{
@@ -98,4 +105,10 @@
     padding: 0.4rem;
     border-radius: 1rem;
     margin-bottom: 0.5rem;
+}
+
+.googleBtn{
+    width: 60%!important;
+    height: 5%!important;
+    margin: 2rem auto 0 auto;
 }

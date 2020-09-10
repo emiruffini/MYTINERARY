@@ -3,6 +3,8 @@ import axios from 'axios'
 import Activity from './Activity'
 import Comments from './Comments'
 import '../styles/activities.css'
+import { connect } from 'react-redux'
+import citiesActions from '../redux/actions/citiesActions'
 
 class Activities extends React.Component{
 
@@ -11,12 +13,12 @@ class Activities extends React.Component{
     }
 
     async componentDidMount(){
-        var idABuscar = this.props.idItinerary
-        const respuesta = await axios.get(`http://127.0.0.1:4000/api/activities/${idABuscar}`)
+        var idToSearch = this.props.idItinerary
+        const res = await this.props.getActivities(idToSearch)
         this.setState({
-            activities: respuesta.data.response
+            activities: res
         })
-        console.log(this.state)
+        
     }
     
     
@@ -42,7 +44,7 @@ class Activities extends React.Component{
                     </div>
                     <div className="commentsContainer ">
                     <h4 className="title">Comments</h4>
-                        <Comments />
+                        <Comments idItinerary = {this.props.idItinerary}/>
                     </div>
 
                 </div>
@@ -52,4 +54,9 @@ class Activities extends React.Component{
     }
 }
 
-export default Activities
+const mapDispatchToProps = {
+    getActivities: citiesActions.getActivities
+}
+
+
+export default connect(null, mapDispatchToProps) (Activities)

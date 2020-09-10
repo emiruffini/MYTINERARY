@@ -1,11 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Header2 from './Header2'
-import Footer from './Footer'
+import Footer2 from './Footer2'
 import'../styles/log.css'
 import usersActions from '../redux/actions/usersActions'
 import Swal from 'sweetalert2'
-
+import GoogleLogin from 'react-google-login';
 class NewAccount extends React.Component{
     
     state={
@@ -42,7 +42,7 @@ class NewAccount extends React.Component{
         })
     }
     submit = async e =>{
-        //validacion minima
+        
         const errors = this.state.errors
         
         const validEmailRegex = RegExp( 	
@@ -86,10 +86,10 @@ class NewAccount extends React.Component{
         })
         if (this.state.errors.user === "" && this.state.errors.passwordValidation === "" && this.state.errors.password === "" && this.state.errors.name=== "" && this.state.errors.surname=== "" && this.state.errors.mail=== "" && this.state.errors.photo=== "" && this.state.errors.country=== "" ){
              const response = await this.props.createAccount(this.state.newUser)
-             if (response === true){
-                Swal.fire({  title: 'Welcome!',  text: `It´s nice to have you here ,${this.props.userLog.users.name}.`,  icon: 'success',  showConfirmButton: false, timer: 2000,allowOutsideClick: false})
-
-                this.props.history.push("/")
+            
+             if (response.success === true){
+                Swal.fire({  title: 'Welcome!',  text: `It´s nice to have you here, ${response.user}.`,  icon: 'success',  showConfirmButton: false, timer: 2000,allowOutsideClick: false})
+                
                 
             }else{
                 if (response.user !== ""){
@@ -116,6 +116,31 @@ class NewAccount extends React.Component{
         //
     }
     
+    responseGoogle = async (response) =>{
+        this.setState({
+            ...this.state,
+            newUser:{
+                user:response.profileObj.email,
+                password:response.profileObj.googleId+response.profileObj.familyName,
+                name:response.profileObj.givenName,
+                surname:response.profileObj.familyName,
+                mail: response.profileObj.email,
+                photo:response.profileObj.imageUrl,
+                passwordValidation:response.profileObj.googleId+response.profileObj.familyName,
+                country:"undefined",
+            }
+        })
+        const res = await this.props.createAccount(this.state.newUser)
+        if (res.success === true){
+            Swal.fire({  title: 'Welcome!',  text: `It´s nice to have you here, ${response.profileObj.givenName}.`,  icon: 'success',  showConfirmButton: false, timer: 2000,allowOutsideClick: false})
+            
+        }else{
+            if (res.user !== ""){
+                Swal.fire({  title: 'Please sign into your account!',  text: `You are already register with this Google account`,  icon: 'warning',  showConfirmButton: false, timer: 3000,allowOutsideClick: false})
+            }
+            
+        }
+    }
 
     
     render(){
@@ -128,6 +153,7 @@ class NewAccount extends React.Component{
                     <h1 className="title">Sign Up</h1>
                     <div className="line"></div>
                 </div>
+                    
                 <div className="inputs">
                     <span className={this.state.errors.mail === "" ? "" : "logError"}>{this.state.errors.mail}</span>
                     <input className="mail" type="mail" placeholder="Enter your email" name="mail" onChange={this.getForm}></input>
@@ -148,16 +174,25 @@ class NewAccount extends React.Component{
                     <input className="surname" type="text" placeholder="Enter your surname" name="surname" onChange={this.getForm}></input>
                     
                     <span className={this.state.errors.photo === "" ? "" : "logError"}>{this.state.errors.photo}</span>
-                    <input className="pic" type="text" placeholder="Link to your porfile pic" name="photo" onChange={this.getForm}></input>
+                    <input className="pic" type="text" placeholder="Link to your profile pic" name="photo" onChange={this.getForm}></input>
                     
                     <span className={this.state.errors.country === "" ? "" : "logError"}>{this.state.errors.country}</span>
                     <input className="country" type="text" placeholder="Your Country" name="country" onChange={this.getForm}></input>
 
                     <button className="send" onClick={this.submit}>Sign Up</button>
+                    
+                    <GoogleLogin
+                        className="googleBtn"
+                        clientId="265571770533-92fvspts16cbanj6uh73ukj8b8pva8gm.apps.googleusercontent.com"
+                        buttonText="Create account with Google"
+                        onSuccess={this.responseGoogle}
+                        onFailure={this.responseGoogle}
+                        cookiePolicy={'single_host_origin'}
+                    />
                 </div>
             </div>
 
-            <Footer />
+            <Footer2 />
 
             </>
         )
@@ -165,7 +200,7 @@ class NewAccount extends React.Component{
 }
 
 const mapDispatchToProps = {
-    createAccount: usersActions.createAccount,
+    createAccount: usersActions.createAccount
 }
 
 const mapStateToProps = (state) =>{

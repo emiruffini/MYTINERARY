@@ -34,6 +34,7 @@ const userController={
             country: country.trim().charAt(0).toUpperCase() + country.slice(1)
         })
         try{
+            
             await newUser.save()
         }catch (err){
             error = err
@@ -50,7 +51,7 @@ const userController={
                     }else{
                         res.json({success: true, response:{
                             token,
-                            name: newUser.name,
+                            name: newUser.user,
                             photo: newUser.photo
                             }
                         })
@@ -135,7 +136,7 @@ const userController={
                     }else{
                         res.json({success: true, response:{
                             token,
-                            name: userExist.name,
+                            name: userExist.user,
                             photo: userExist.photo
                             }
                         })
@@ -144,10 +145,36 @@ const userController={
                 
             } 
         }
-        
+    },
+    getLikes: async (req, res) =>{
+        var id = req.user._id
+
+        try{
+            var user = await User.findOne({_id: id})
+            res.json({
+                success: true,
+                response: user.likes
+            })
+
+
+        }catch(error){
+            res.json({
+                success: false,
+                response: error
+            })
+        }
+    },
+    validateToken: (req,res) =>{
+        const name = req.user.user
+        const photo = req.user.photo
+        res.json({
+            success: true, 
+            response: {name, photo}
+        })
     }
 
 }
+ 
 
 
 

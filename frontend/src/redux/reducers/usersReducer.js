@@ -7,6 +7,7 @@ const initalState = {
 const userReducer = (state = initalState, action) =>{
     switch(action.type){
         case "LOG_USER_INTO_APP":
+            localStorage.setItem('token', action.payload.token)
             return{
                 ...state, 
                 name: action.payload.name,
@@ -14,6 +15,7 @@ const userReducer = (state = initalState, action) =>{
                 photo: action.payload.photo
             }
         case "UNLOG_USER_FROM_APP":
+            localStorage.clear()
             return{
                 ...state,
                 name:"",
