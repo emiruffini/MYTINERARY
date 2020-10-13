@@ -78,7 +78,7 @@ Todos los derechos reservados.
 ## Expresiones de Gratitud 🎁
 
 * Agradezco a Fer B por la mentoría y la paciencia 🍺
-* Támbien a Mindhub por la oportunidad de crecer como developer 🤓
+* También a Mindhub por la oportunidad de crecer como developer 🤓
 
 
 
