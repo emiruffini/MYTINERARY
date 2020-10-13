@@ -4,9 +4,11 @@ import axios from "axios"
 
 
 const usersActions = {
+    //Creo una cuenta
     createAccount : newUser =>{
         return async (dispatch, getState) => {       
             const res = await axios.post('http://localhost:4000/api/users', newUser)
+            console.log(res)
             const error ={
                 mail:"",
                 user:""
@@ -33,6 +35,19 @@ const usersActions = {
         }
 
     },
+    //Obtengo si existe un usuario
+    getUser: user =>{
+        return async (dispatch, getState) =>{
+            
+            const res = await axios.post("http://localhost:4000/api/getUser", user)
+            
+            dispatch({
+                type: "GET_USER_EXISTS"
+            })
+            return res.data.success
+        }
+    },
+    //Logeo al usuario
     logUser : user =>{
         return async ( dispatch, getState) => {
             const res = await axios.post("http://localhost:4000/api/login", user)
@@ -52,6 +67,7 @@ const usersActions = {
             }
         }
     },
+    //Deslogueo al usuario
     unlogUser : () => {
         return (dispatch, getState) =>{
             dispatch({
@@ -59,6 +75,7 @@ const usersActions = {
             })
         }
     },
+    //Funcion para forzar el inicio de sesion y perdurar la misma
     forcedLogin: token =>{
         return async(dispatch, getState) =>{
             const res = await axios.get("http://localhost:4000/api/validateToken", {
@@ -79,6 +96,7 @@ const usersActions = {
             })}
         }
     },
+    //Likeo el itinerario
     likeItinerary: (id, token) =>{
         return async (dispatch, getState ) => {
             
@@ -96,6 +114,7 @@ const usersActions = {
             return (res.data.response)
         }
     },
+    //Obtengo los likes del usuario
     getLikes: (token) => {
         return async (dispatch, getState) =>{
             const res = await axios.get("http://localhost:4000/api/user", {
@@ -109,6 +128,7 @@ const usersActions = {
             return(res.data.response)
         }
     },
+    //Obtengo los comentarios de un itinerario
     getComments: (idItinerary) =>{
         return async (dispatch, getState) =>{
             const res = await axios.get("http://localhost:4000/api/itinerary/"+idItinerary)
@@ -118,6 +138,7 @@ const usersActions = {
             return (res.data.response)
         }
     } ,
+    //Borrar un comentario
     deleteComment: (idComment) =>{
         return async (dispatch, getState) =>{
             const res = await axios.delete("http://localhost:4000/api/comment/"+idComment)
@@ -127,6 +148,7 @@ const usersActions = {
         }
         
     },
+    //Comentar un itinerario
     commentItinerary: (token, idItinerary, comment) => {
             console.log({token, idItinerary, comment})
             var id = idItinerary

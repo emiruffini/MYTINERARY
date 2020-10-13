@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom'
 
 class Slide extends React.Component{
     render(){
-
+        //Componente que muestra cada ciudad en el carrousel
         if (this.props.cities.slide != undefined){
         
         return(

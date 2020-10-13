@@ -7,7 +7,7 @@ import usersActions from '../redux/actions/usersActions'
 import Swal from 'sweetalert2'
 import GoogleLogin from 'react-google-login';
 class NewAccount extends React.Component{
-    
+    //Componente para crear un cuenta, realizando una validación de los datos
     state={
         newUser:{
             user:"",
@@ -32,6 +32,7 @@ class NewAccount extends React.Component{
     }
     
     getForm = e =>{
+        //Funcion para obtener los datos del input
         const property = e.target.name
         const value = e.target.value
         this.setState({
@@ -42,7 +43,7 @@ class NewAccount extends React.Component{
         })
     }
     submit = async e =>{
-        
+        //Funcion para validar los datos y crear una cuenta
         const errors = this.state.errors
         
         const validEmailRegex = RegExp( 	
@@ -85,14 +86,24 @@ class NewAccount extends React.Component{
             errors
         })
         if (this.state.errors.user === "" && this.state.errors.passwordValidation === "" && this.state.errors.password === "" && this.state.errors.name=== "" && this.state.errors.surname=== "" && this.state.errors.mail=== "" && this.state.errors.photo=== "" && this.state.errors.country=== "" ){
-             const response = await this.props.createAccount(this.state.newUser)
+            //Si no hay errores en la validación, podre crear una cuenta 
+            const response = await this.props.createAccount(this.state.newUser)
             
              if (response.success === true){
-                Swal.fire({  title: 'Welcome!',  text: `It´s nice to have you here, ${response.user}.`,  icon: 'success',  showConfirmButton: false, timer: 2000,allowOutsideClick: false})
+                Swal.fire({  
+                    title: 'Welcome!',  
+                    text: `It´s nice to have you here, ${response.user}.`,  
+                    icon: 'success',  
+                    showConfirmButton: false,
+                     timer: 2000,
+                     allowOutsideClick: false
+                })
                 
                 
             }else{
+                //Si el backend contesta con un error(mail o nombre de usuario ya registrados)
                 if (response.user !== ""){
+                    //Lo guardo en el state y se lo muestro al usuario
                     this.setState({
                         errors:{
                             ...this.state.errors,
@@ -117,26 +128,42 @@ class NewAccount extends React.Component{
     }
     
     responseGoogle = async (response) =>{
+        //Funcion para crear cuenta con google
         this.setState({
             ...this.state,
             newUser:{
                 user:response.profileObj.email,
-                password:response.profileObj.googleId+response.profileObj.familyName,
+                password:response.profileObj.googleId+response.profileObj.familyName.replace(/ /g, ""),
                 name:response.profileObj.givenName,
                 surname:response.profileObj.familyName,
                 mail: response.profileObj.email,
                 photo:response.profileObj.imageUrl,
-                passwordValidation:response.profileObj.googleId+response.profileObj.familyName,
+                passwordValidation:response.profileObj.googleId+response.profileObj.familyName.replace(/ /g, ""),
                 country:"undefined",
             }
         })
         const res = await this.props.createAccount(this.state.newUser)
+        //Si el usuario no esta registrado con google se crea la cuenta
         if (res.success === true){
-            Swal.fire({  title: 'Welcome!',  text: `It´s nice to have you here, ${response.profileObj.givenName}.`,  icon: 'success',  showConfirmButton: false, timer: 2000,allowOutsideClick: false})
-            
+            Swal.fire({  
+                title: 'Welcome!',  
+                text: `It´s nice to have you here, ${response.profileObj.givenName}.`,  
+                icon: 'success',  
+                showConfirmButton: false, 
+                timer: 2000,
+                allowOutsideClick: false
+            })
         }else{
             if (res.user !== ""){
-                Swal.fire({  title: 'Please sign into your account!',  text: `You are already register with this Google account`,  icon: 'warning',  showConfirmButton: false, timer: 3000,allowOutsideClick: false})
+                //Si el usuario esta registrado con google una alerta le avisa que debe iniciar sesion
+                Swal.fire({  
+                    title: 'Please sign into your account!',  
+                    text: `You are already register with this Google account`,  
+                    icon: 'warning',  
+                    showConfirmButton: false, 
+                    timer: 3000,
+                    allowOutsideClick: false
+                })
             }
             
         }
@@ -183,7 +210,7 @@ class NewAccount extends React.Component{
                     
                     <GoogleLogin
                         className="googleBtn"
-                        clientId="265571770533-92fvspts16cbanj6uh73ukj8b8pva8gm.apps.googleusercontent.com"
+                        clientId="265571770533-12ttomkrgmba1b8ne8cgt86b9af3i7hh.apps.googleusercontent.com"
                         buttonText="Create account with Google"
                         onSuccess={this.responseGoogle}
                         onFailure={this.responseGoogle}

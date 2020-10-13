@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from 'axios'
 import Activity from './Activity'
 import Comments from './Comments'
 import '../styles/activities.css'
@@ -13,6 +12,7 @@ class Activities extends React.Component{
     }
 
     async componentDidMount(){
+        //Cuando el componente se monta obtengo las actividades de un itinerario puntual
         var idToSearch = this.props.idItinerary
         const res = await this.props.getActivities(idToSearch)
         this.setState({

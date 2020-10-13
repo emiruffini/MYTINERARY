@@ -6,7 +6,10 @@ class Activity extends React.Component{
         var src = require("../images/activities/"+this.props.activity.photoName+".jpg")
         return (
             <>
-                <div className= "activityContainer" style={{backgroundImage:`url(${src})`}} >
+                <div 
+                className= "activityContainer" 
+                style={{backgroundImage:`url(${src})`}} 
+                >
                     <h4>{this.props.activity.name}</h4>
                 </div>
             </>

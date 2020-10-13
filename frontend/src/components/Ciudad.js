@@ -3,6 +3,7 @@ import {NavLink} from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faFrown} from '@fortawesome/free-solid-svg-icons'
 
+    //Componente de cada ciudad mostrada en la lista de ciudades
 const Ciudad = (props) =>{
     
     if (props.ciudad === "vacio"){

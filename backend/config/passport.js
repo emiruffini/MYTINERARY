@@ -6,7 +6,7 @@ const ExtractJwt = require('passport-jwt').ExtractJwt
 const User = require('../models/userModel')
 
 
-//strategy
+//Estrategia Passport para protejer rutas 
 
 module.exports = passport.use(new jwtStrategy({
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

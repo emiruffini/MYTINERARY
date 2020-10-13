@@ -4,7 +4,7 @@ import '../styles/ciudadesFiltro.css'
 import {connect} from 'react-redux'
 import { NavLink, Redirect } from 'react-router-dom'
 
-
+//Componente donde se mostrarpa cada componente ciudad y donde se encuentra el filtro
 
 class Ciudades extends React.Component{
     state ={

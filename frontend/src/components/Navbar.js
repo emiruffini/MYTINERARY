@@ -36,7 +36,11 @@ const Navegacion = (props) => {
     <div>
       <Navbar className="navbar" color="light" light expand="md">
         
-        <NavbarBrand><NavLink to = "/home"><img className="logo" src={process.env.PUBLIC_URL + '/logo.png' }/></NavLink></NavbarBrand>
+        <NavbarBrand>
+          <NavLink to = "/home">
+            <img className="logo" src={process.env.PUBLIC_URL + '/logo.png' }/>
+          </NavLink>
+        </NavbarBrand>
         
         
           
@@ -77,7 +81,10 @@ const Navegacion = (props) => {
             <div className="user1">
             <UncontrolledDropdown className="mr-5 pt-0 pb-0" nav inNavbar>
               <DropdownToggle nav caret>
-                <NavbarBrand className="mr-1 login" ><img className="user" src={logUser.token === "" ?process.env.PUBLIC_URL + '/user.png': logUser.photo}/></NavbarBrand>
+                <NavbarBrand className="mr-1 login" >
+                  <img className="user" 
+                  src={logUser.token === "" ?process.env.PUBLIC_URL + '/user.png': logUser.photo}/>
+                </NavbarBrand>
               </DropdownToggle>
               <DropdownMenu right>
                 {logUser.token ==="" 

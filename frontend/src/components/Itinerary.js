@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import usersActions from '../redux/actions/usersActions'
 import "../styles/itineraries.css"
 
-
+//Componente para mostrar un itinerario
 class Itinerary extends React.Component{
     state = {
         viewMore: null, 
@@ -17,6 +17,7 @@ class Itinerary extends React.Component{
     }
 
      async componentDidMount(){
+         //Cuando el componente se monta obtengo si el usuario lo likeo anteriormente o no
         await this.liked()
     } 
 
@@ -52,6 +53,7 @@ class Itinerary extends React.Component{
 
 
     likes = async () =>{
+        //Funcion para likear un itinerario
         var likesAmmount = await this.props.likeItinerary(this.props.itinerary._id, this.props.token)
         this.liked()
         this.setState({
@@ -101,7 +103,19 @@ class Itinerary extends React.Component{
                                     <div className="parrafos">
                                         <p>Duration: {this.props.itinerary.duration} hours</p>
                                         <p>{price(this.props.itinerary.price)}</p>
-                                        <p><button className="like" onClick={this.likes}><FontAwesomeIcon className={this.state.liked ? "red" : "white"} icon={faHeart}/></button> {this.state.likesAmmount === "" ? this.props.itinerary.rating : this.state.likesAmmount}</p>
+                                        <p><button 
+                                            className="like" 
+                                            onClick={this.likes}
+                                            >
+                                                <FontAwesomeIcon 
+                                                className={this.state.liked ? "red" : "white"} 
+                                                icon={faHeart}/>
+                                            </button> 
+                                            {this.state.likesAmmount === "" 
+                                            ? this.props.itinerary.rating 
+                                            : this.state.likesAmmount
+                                            } {/* Actualizo la cantidad de likes tras likear */}
+                                            </p>
                                     </div>
                                     <div className="hashtags">
                                         {this.props.itinerary.hashtag.map(hashtag =>{
@@ -114,7 +128,11 @@ class Itinerary extends React.Component{
                             </div>
                             
                             {this.state.viewMore && <Activities idItinerary ={this.props.itinerary._id}/>}
-                            <button onClick={this.changeStatus} className="botonActivities">{this.state.viewMore ? "View Less" : "View More"}</button>
+                            <button 
+                                onClick={this.changeStatus} 
+                                className="botonActivities"
+                            >{this.state.viewMore ? "View Less" : "View More"}
+                            </button>
                             
 
                         </div>

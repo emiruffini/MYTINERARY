@@ -4,6 +4,7 @@ const Comment = require("../models/commentModel")
 const User = require('../models/userModel')
 
 const ItinerariesController = {
+    // Controlador para obtener todos los itinerarios
     getItineraries: async (req, res) =>{
         try{
             const data = await Itinerary.find()
@@ -18,6 +19,7 @@ const ItinerariesController = {
             })
         }
     },
+    //Controlador para guardar un itinerario
     loadItineraries: async (req, res) =>{
         var {hashtag, title, porfilePic, rating, duration, price, cityId, comments} = req.body
 
@@ -44,6 +46,7 @@ const ItinerariesController = {
             })
         }
     },
+    //Controlador para obtener un itinerario por id de Ciudad
     getItinerary: async (req, res) =>{
         var id = req.params.id
         try{
@@ -63,7 +66,7 @@ const ItinerariesController = {
             })
         }
     },
-
+    //Obtener los comentarios de un determinado itinerario
     getCommentsByItineraryId: async (req, res) =>{
         var itineraryId = req.params.id
         try{
@@ -79,6 +82,7 @@ const ItinerariesController = {
             })
         }
     },
+    //Controlador para guardar un comentario
     commentItinerary: async (req, res) =>{
       
         var user = req.user.user
@@ -90,7 +94,7 @@ const ItinerariesController = {
             user,
             comment
         })
-        /* console.log(newComment) */
+        
         try{
             await newComment.save()
             res.json({
@@ -105,7 +109,7 @@ const ItinerariesController = {
             })
         }
     },
-
+    //Controlador para borrar un comentario
     deleteComment: async (req, res) =>{
         var id = req.params.id
         
@@ -122,11 +126,12 @@ const ItinerariesController = {
             })
         }
     },
-
+    //Controlador para likear itinerarios 
     LikeItineraries: async (req, res) =>{
         var id = req.user._id
         var itineraryId = req.params.id
         try {
+            // Encuentro un usuario
             var user = await User.findOne({_id:id})
             if(!user){
                 res.json({
@@ -134,6 +139,7 @@ const ItinerariesController = {
                     response: "User not found"
                 })
             }
+            //Encuentro un itinerario
             var itinerary = await Itinerary.findOne({_id:itineraryId})
             if (!itinerary){
                 res.json({
@@ -142,6 +148,7 @@ const ItinerariesController = {
                 })
             }
             if (!user.likes.includes(itineraryId)){
+                //Si no encuentro el itinerario en el array de likes aumento la cantidad 
                 var likes = user.likes
                 likes.push(itineraryId)
                 var rating = itinerary.rating += 1;
@@ -153,6 +160,7 @@ const ItinerariesController = {
                     response: rating
                 })
             }else{
+                // Si encuentro el itinerario en el array de likes disminuyo la cantidad
                 var likes = user.likes.filter(itinerary => itinerary != itineraryId) 
                 var rating = itinerary.rating <= 0 ? 0 : itinerary.rating - 1
                 await User.updateOne({_id:id}, {likes})

@@ -13,7 +13,7 @@ import { connect } from 'react-redux'
 
 
 
-
+//Componente que me muestra los itinerarios de cada ciudad
 class Itineraries extends React.Component{
 
     state ={
@@ -27,7 +27,7 @@ class Itineraries extends React.Component{
     async componentDidMount(){
         
         window.scrollTo(0, 0)
-          
+        //Cuando el componente se monta obtengo los itinerarios
         var idABuscar = this.props.match.params.id
         var res = await this.props.getItineraries(idABuscar)
         console.log(res)
@@ -37,6 +37,7 @@ class Itineraries extends React.Component{
             })
         }
         var toRender = (this.state.itinerarios.length !== 0 && this.state.ciudad.name === null) 
+        //Si la ciudad tiene itinerarios, cargo su nombre en el state, para mostrarla en el titulo
         ? this.setState({
             ciudad:{
                 name: res.response[0].cityId.name,
@@ -45,6 +46,7 @@ class Itineraries extends React.Component{
         })
         : (this.state.itinerarios !== null && this.state.ciudad.name === null)
         ?
+        //Si la ciudad no tiene itinerarios, la respuesta del backend es otra pero obtengo su nombre para mostrarlo
         this.setState({
             ciudad:{
                 name: res.response2.name,

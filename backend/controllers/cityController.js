@@ -2,6 +2,7 @@ const City = require('../models/cityModel')
 
 
 const CitiesController={
+    //Controlador para obtener ciudades
     getCities: async (req, res) => {
         try{
             const data = await City.find()
@@ -14,7 +15,7 @@ const CitiesController={
                 response:"Error loading cities"})
         }
     },
-        
+    //Controlador para cargar una ciudad
     loadCities: async (req, res) => {
 
         var {name, country} = req.body//destructuring
@@ -34,7 +35,7 @@ const CitiesController={
         }
         
     },
-
+    //Controlador para borrar una ciudad
     deleteCities: async (req, res) =>{
         var id = req.params.id
         try{
@@ -48,7 +49,7 @@ const CitiesController={
                 response:"Error deleting city"})
         }
     },
-
+    //Controlador mara modificar una ciudad
     modifyCities: async (req, res) => {
         var id= req.params.id
         var {name, country} = req.body

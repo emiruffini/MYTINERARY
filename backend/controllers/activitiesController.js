@@ -1,6 +1,8 @@
 const Activity = require('../models/activitiesModel')
 
+
 const ActivitiesController = {
+  //Controlador para obtener todas las actividades
     getActivities: async (req, res) =>{
         try{
             const data = await Activity.find()
@@ -13,6 +15,7 @@ const ActivitiesController = {
                 response:"Error loading activities"})
         }
     },
+    //Controlador para obtener las actividades de un determinado itinerario
     getActivitiesByItinerary: async (req, res) =>{
         var id = req.params.id
         try{
@@ -29,6 +32,7 @@ const ActivitiesController = {
             })
         }
     },
+    //Controlador para cargar una actividad
     loadActivities: async (req, res) => {
         var {name, photoName, itineraryId} = req.body
         const newActivity = new Activity({

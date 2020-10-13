@@ -34,6 +34,7 @@ class App extends React.Component{
     }
     else if(localStorage.getItem('token')){
       this.props.forcedLogin(localStorage.getItem('token'))
+      //Fuerzo el login si  hay un token en local storage
       var routes = 
       (
         <Switch>

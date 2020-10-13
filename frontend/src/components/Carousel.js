@@ -59,16 +59,16 @@ const Car = (props) => {
     setActiveIndex(newIndex);
   }
 
-  const selectCities = createSelector(
+  const selectCities = createSelector(//Funcion que acepta Redux state como argumento
     state => state.cities,
     allCities => allCities
   )
-  const allCities = useSelector(selectCities)
+  const allCities = useSelector(selectCities)//Guardo el state global en una variable all cities
   
 
   if (allCities.cities.lenght != 0){
 
-    City(allCities)
+    City(allCities)//Esta funcion me divide las ciudades en 4 
     
     const slides = items.map((item) => {
 
@@ -78,7 +78,7 @@ const Car = (props) => {
           onExited={() => setAnimating(false)}
           
         >
-          
+          {/*Llamo al componente Slide que me mostrará cuatro fotos en cada slide */}
           <Slide cities={item} />
              
           
@@ -93,10 +93,22 @@ const Car = (props) => {
         next={next}
         previous={previous}
       >
-        <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
+        <CarouselIndicators 
+        items={items} 
+        activeIndex={activeIndex} 
+        onClickHandler={goToIndex} 
+        />
         {slides}
-        <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
-        <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
+        <CarouselControl 
+        direction="prev" 
+        directionText="Previous" 
+        onClickHandler={previous} 
+        />
+        <CarouselControl 
+        direction="next" 
+        directionText="Next" 
+        onClickHandler={next} 
+        />
       </Carousel>
     );
   }else{
