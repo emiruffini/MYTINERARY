@@ -1,6 +1,6 @@
 # MYTINERARY
 
-Aplicación web desarrollada con stack mern. Es una aplicación de viajes donde podremos ver diferentes ciudades del mundo y asociadas a las mismas habrá itinerarios con actividades para llevar a cabo
+_Aplicación web desarrollada con stack mern. Es una aplicación de viajes donde podremos ver diferentes ciudades del mundo y asociadas a las mismas habrá itinerarios con actividades para llevar a cabo_
 
 ## Comenzando 🚀
 
@@ -17,6 +17,7 @@ npm start en backend
 npm start en frontend
 
 # El servidor corre en http://localhost:4000 y el cliente en http://localhost:3000
+```
 
 ### Pre-requisitos 📋
 
