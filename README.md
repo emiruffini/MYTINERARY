@@ -69,12 +69,12 @@ _Proyecto realizado de manera individual_
 
 ## Licencia 📄
 
-Este proyecto está bajo la Licencia (Tu Licencia) - mira el archivo [LICENSE.md](LICENSE.md) para detalles
+Todos los derechos reservados. 
 
 ## Expresiones de Gratitud 🎁
 
 * Agradezco a Fer Biaus por la mentoría y la paciencia 🍺
-* Támbien a Mindhub por la oportunidad de crecer como developer 🤓.
+* Támbien a Mindhub por la oportunidad de crecer como developer 🤓
 
 
 
