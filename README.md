@@ -2,6 +2,10 @@
 
 _Aplicación web desarrollada con stack mern. Es una aplicación de viajes donde podremos ver diferentes ciudades del mundo y asociadas a las mismas habrá itinerarios con actividades para llevar a cabo_
 
+## Demo 📦
+
+_Para ver una demo del proyecto desplegado, puedes ir a [Demo del proyecto](https://mytinerary-ruffini.herokuapp.com/)_
+
 ## Comenzando 🚀
 
 ```# Instalar dependencias para el servidor
